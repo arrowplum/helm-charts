@@ -29,20 +29,40 @@ jobs:
         with:
           python-version: '3.x'
           check-latest: true
+
       - name: Set up chart-testing
         uses: helm/chart-testing-action@v2.0.0
 
+      # Debugging Step: Print out the current branch and the default branch
+      - name: Debug - Print Branch Information
+        run: |
+          echo "Current branch: ${{ github.ref }}"
+          echo "Target branch: ${{ github.event.repository.default_branch }}"
+
+      # Run chart-testing (list-changed) and output debug info
       - name: Run chart-testing (list-changed)
         id: list-changed
         run: |
           changed=$(ct list-changed --target-branch ${{ github.event.repository.default_branch }})
+          echo "Changed charts: $changed"
           if [[ -n "$changed" ]]; then
+            echo "Setting changed=true"
             echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "No changed charts detected"
+            echo "changed=false" >> "$GITHUB_OUTPUT"
           fi
+
+      # Debugging Step: Check what the output of list-changed is
+      - name: Debug - Check list-changed output
+        run: |
+          echo "list-changed output: ${{ steps.list-changed.outputs.changed }}"
 
       - name: Run chart-testing (lint)
         if: steps.list-changed.outputs.changed == 'true'
-        run: ct lint --target-branch ${{ github.event.repository.default_branch }}
+        run: |
+          echo "Running ct lint..."
+          ct lint --target-branch ${{ github.event.repository.default_branch }}
 
       - name: Create kind cluster
         if: steps.list-changed.outputs.changed == 'true'
@@ -50,4 +70,6 @@ jobs:
 
       - name: Run chart-testing (install)
         if: steps.list-changed.outputs.changed == 'true'
-        run: ct install --target-branch ${{ github.event.repository.default_branch }}
+        run: |
+          echo "Running ct install..."
+          ct install --target-branch ${{ github.event.repository.default_branch }}
