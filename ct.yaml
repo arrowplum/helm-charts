@@ -1,0 +1,5 @@
+chart-dirs:
+    - aerospike-vector-search
+    - aerospike-backup-service
+    - aerospike-proxy
+    - aerospike-jms-outbound
