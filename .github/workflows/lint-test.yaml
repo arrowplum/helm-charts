@@ -42,7 +42,7 @@ jobs:
       - name: Run chart-testing (lint)
         run: |
           echo "Running ct lint..."
-          ct lint --chart-dirs . --charts aerospike-vector-search  --config ct.yaml --debug 
+          ct lint  --config ct.yaml --debug 
 
       # Create Kind cluster for installation testing
       - name: Create kind cluster
@@ -55,4 +55,4 @@ jobs:
       - name: Run chart-testing (install)
         run: |
           echo "Running ct install..."
-          ct install  --chart-dirs . --charts aerospike-vector-search --debug 
+          ct install  --config ct.yaml --debug 
