@@ -3,3 +3,4 @@ chart-dirs:
     - aerospike-backup-service
     - aerospike-proxy
     - aerospike-jms-outbound
+check-for-chart-changes: false
