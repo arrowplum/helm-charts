@@ -1,5 +1,5 @@
 apiVersion: v2
-name:  aerospike-vector-search
+name: aerospike-vector-search
 description: A Helm chart for Aerospike Vector Search
 type: application
 icon: https://avatars0.githubusercontent.com/u/2214313?s=200&v=4
@@ -10,9 +10,7 @@ keywords:
 maintainers:
   - name: Aerospike
     email: developers@aerospike.com
-
 # The helm chart version
-version:  0.4.1
-
+version: 0.4.1
 # The default version of Aerospike Kafka Outbound Connector
 appVersion: "0.10.0"
