@@ -46,6 +46,7 @@ jobs:
         run: |
           echo "Running ct lint..."
           ct lint   --debug --target-branch ${{ github.event.repository.default_branch }} chart-dirs .
+          
 
       # Create Kind cluster for installation testing
       - name: Create kind cluster
